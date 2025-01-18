@@ -1,0 +1,62 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block 'main'  %}
+<div class="container">
+<div class="row" >
+  <div class="col-md-3 mt-3 bg-warning">
+   <h4>Filter by category</h4>
+   <hr>
+   <p><a href="/home" class="anchor">All</a></p>
+   <p><a href="/catfilter/1" class="anchor"> Small SUV </a></p>
+   <p><a href="/catfilter/2" class="anchor"> Medium SUV </a></p>
+   <p><a href="/catfilter/3" class="anchor"> Large SUV </a></p>
+   <h4>Filter by price</h4>
+   <hr>
+   <form method="GET" action="/range">
+      <div class="mb-3">
+          <label for="Input1" class="form-label">Min:</label>
+          <input type="number" class="form-control" id="Input1" name="umin" placeholder="min price">
+      </div>
+      <div class="mb-3">
+          <label for="Input2" class="form-label">Max:</label>
+          <input type="number" class="form-control" id="Input2" name="umax" placeholder="max price">
+      </div>
+      <div class="mb-3">
+          <input type="submit" class="btn btn-dark" value="Search">
+      </div>
+     </form>
+   <h4 class="mt-2">sort by Price</h4>
+   <hr>
+   <p><a href="/sort/1" class="anchor">HIGH TO LOW</a></p>
+   <p><a href="/sort/0" class="anchor">LOW TO HIGH</a></p>
+  </div><!-- end of side bar-->
+
+<div class="col-md-9 mt-3">
+<div  class="row">
+  {% for x in product %}
+<div class="col-md-3">
+    <div class="card" style="width: 100%;">
+      <img src="{{x.pimage.url}}" class="card-img-top" width="250px" height="250px" alt="">
+      <div class="card-body">
+        <h5 class="card-title">{{ x.name }}</h5>
+        <p class="card-text">Rs.{{ x.price }}</p>
+        {% if x.cat == 1 %}
+        <p class="card-text">Small SUV</p>
+        {% elif x.cat == 2 %}
+        <p class="card-text">Medium SUV</p>
+        {% else %}
+        <p class="card-text">Large SUV</p>
+        {% endif %}
+        <a href="/pdetails/{{x.id}}" class="btn btn-dark ">see details </a>
+      </div>
+    </div>
+  </div>
+  {% endfor %}
+  </div>
+  </div>
+  
+  </div>
+  </div>
+
+
+{% endblock 'main' %}
